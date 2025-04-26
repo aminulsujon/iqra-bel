@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+/* Hide scrollbar for all browsers */
+.no-scrollbar {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer and Edge */
+}
+.no-scrollbar::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+}
+.section{
+    @apply px-4 md:px-40 py-4 gap-4;
+}
+.tags{
+    @apply overflow-x-auto whitespace-nowrap py-2 cursor-grab select-none no-scrollbar;
+}
+.tags a{
+    @apply inline-block px-4 py-2 mx-2 text-gray-900 bg-gray-100 rounded-full shadow-md;
+}
+.tags a.active{
+    @apply bg-gray-300
+}
+
