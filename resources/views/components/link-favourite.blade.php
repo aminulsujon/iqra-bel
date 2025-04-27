@@ -1,4 +1,4 @@
-<a href="favourite" class="text-gray-500 hover:text-gray-600 text-xl">
+<a href="favourite" class="{{ $active ?? '' }} text-gray-500 hover:text-gray-600 text-xl">
     <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
     <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5
                 2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09

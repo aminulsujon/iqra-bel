@@ -50,66 +50,59 @@
             </div>
         </div>
 
-        <div class="section">
-            <div id="tagScroller" class="tags">
-                <a href="#" class="active">All</a>
-                <a href="#">Offers</a>
-                <a href="#">Best Sale</a>
-                <a href="#">Top Rated</a>
-                <a href="#">Latest</a>
-            </div>
-        </div>
+        @include('components.scroller')
         @include('components.featured-col')
         @include('components.offer')
+        @include('components.featured-heading',['title'=>'Popular Pizza','hasmore'=>'See All'])
+        @include('components.scroller-category')
         @include('components.featured-row')
+
+        <script>
+            const scrollers = document.querySelectorAll('.tagScroller');
           
+            scrollers.forEach((scroller) => {
+              let isDown = false;
+              let startX;
+              let scrollLeft;
           
+              scroller.addEventListener('mousedown', (e) => {
+                isDown = true;
+                scroller.classList.add('cursor-grabbing');
+                startX = e.pageX - scroller.offsetLeft;
+                scrollLeft = scroller.scrollLeft;
+              });
           
-          <script>
-            const scroller = document.getElementById('tagScroller');
-            let isDown = false;
-            let startX;
-            let scrollLeft;
+              scroller.addEventListener('mouseleave', () => {
+                isDown = false;
+                scroller.classList.remove('cursor-grabbing');
+              });
           
-            scroller.addEventListener('mousedown', (e) => {
-              isDown = true;
-              scroller.classList.add('cursor-grabbing');
-              startX = e.pageX - scroller.offsetLeft;
-              scrollLeft = scroller.scrollLeft;
-            });
+              scroller.addEventListener('mouseup', () => {
+                isDown = false;
+                scroller.classList.remove('cursor-grabbing');
+              });
           
-            scroller.addEventListener('mouseleave', () => {
-              isDown = false;
-              scroller.classList.remove('cursor-grabbing');
-            });
+              scroller.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - scroller.offsetLeft;
+                const walk = (x - startX) * 2; // adjust drag speed
+                scroller.scrollLeft = scrollLeft - walk;
+              });
           
-            scroller.addEventListener('mouseup', () => {
-              isDown = false;
-              scroller.classList.remove('cursor-grabbing');
-            });
+              // Mobile touch events
+              scroller.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].pageX - scroller.offsetLeft;
+                scrollLeft = scroller.scrollLeft;
+              });
           
-            scroller.addEventListener('mousemove', (e) => {
-              if (!isDown) return;
-              e.preventDefault();
-              const x = e.pageX - scroller.offsetLeft;
-              const walk = (x - startX) * 2; // adjust drag speed
-              scroller.scrollLeft = scrollLeft - walk;
-            });
-          
-            // Optional: Make it work nicely for mobile touch drag too
-            scroller.addEventListener('touchstart', (e) => {
-              startX = e.touches[0].pageX - scroller.offsetLeft;
-              scrollLeft = scroller.scrollLeft;
-            });
-          
-            scroller.addEventListener('touchmove', (e) => {
-              const x = e.touches[0].pageX - scroller.offsetLeft;
-              const walk = (x - startX) * 2;
-              scroller.scrollLeft = scrollLeft - walk;
+              scroller.addEventListener('touchmove', (e) => {
+                const x = e.touches[0].pageX - scroller.offsetLeft;
+                const walk = (x - startX) * 2;
+                scroller.scrollLeft = scrollLeft - walk;
+              });
             });
           </script>
-          
-          
 
         @if (Route::has('login'))
             <div class="h-14.5 hidden lg:block"></div>
